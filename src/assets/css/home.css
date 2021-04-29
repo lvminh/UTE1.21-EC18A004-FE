@@ -56,8 +56,8 @@
   font-size: 40px;
 }
 .offset-1 {
-    margin-left: 8.333333%;
-  }
+  margin-left: 8.333333%;
+}
 .offset-6 {
   margin-left: 50%;
 }
@@ -125,18 +125,28 @@
   font-weight: 900;
   font-size: 25px;
   line-height: 34px;
+  transition: 0.5s;
+  opacity: .5;
 }
 
 .nav-link > a:hover {
-  color: #d50000;
+  opacity: 1;
+  transition: 0.35s;
 }
-
+.active a{
+  color: #ffffff;
+  opacity: 1;
+  /* border: 1px dotted #000000; */
+  -webkit-text-stroke-width:1px;
+  -webkit-text-stroke-color:black;
+}
 .navbar > .gonow {
   width: 23.2%;
 }
 /* Slider */
 .slider {
   width: 100%;
+  cursor: pointer;
   /* padding-top: 35.65%; */
   position: relative;
   height: 623px;
@@ -156,31 +166,95 @@
   align-items: center;
   justify-content: center;
 }
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
-  .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
-  .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
-  .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
-  .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
-  .col-xl-auto {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .col-5 {
-    -ms-flex: 0 0 41.666667%;
-    flex: 0 0 41.666667%;
-    max-width: 41.666667%;
-  }
-.col-6 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12,
+.col,
+.col-auto,
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm,
+.col-sm-auto,
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md,
+.col-md-auto,
+.col-lg-1,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg,
+.col-lg-auto,
+.col-xl-1,
+.col-xl-2,
+.col-xl-3,
+.col-xl-4,
+.col-xl-5,
+.col-xl-6,
+.col-xl-7,
+.col-xl-8,
+.col-xl-9,
+.col-xl-10,
+.col-xl-11,
+.col-xl-12,
+.col-xl,
+.col-xl-auto {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
 }
-.col-4{
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
+.col-5 {
+  -ms-flex: 0 0 41.666667%;
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
+}
+.col-6 {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.col-4 {
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
 }
 .decrip {
   width: 372px;
@@ -213,6 +287,15 @@
   /* position: absolute; */
   bottom: 0%;
   background: rgba(255, 255, 255, 0.86);
+  transition: .5s;
+}
+.slider-btn:hover{
+  background: rgba(196, 196, 196, 0.81);
+  transition: .5s;
+}
+.slider-btn:hover .ti-arrow-right{
+    transform: translateX(-15px);
+    transition: .5s;
 }
 
 #slider > #next {
@@ -259,48 +342,47 @@
   justify-content: space-between;
   margin-top: 56px;
 }
-.operation-place{
-    width: 100%;
-    height: 354px;
-    border-radius: 25px;
-    position: relative;
-    transition: .5s;
-    cursor: pointer;
+.operation-place {
+  width: 100%;
+  height: 354px;
+  border-radius: 25px;
+  position: relative;
+  transition: 0.5s;
+  cursor: pointer;
 }
-.operation-place:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: .5s;
+.operation-place:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0.5s;
 }
-.operation-place-img{
-    position: absolute;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background-color: #c4c4c4;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.operation-place-img {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-color: #c4c4c4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.operation-modal h4{
-    text-align: center;
-    color: white;
-    font-size: 25px;
-    padding: 10px 0;
+.operation-modal h4 {
+  text-align: center;
+  color: white;
+  font-size: 25px;
+  padding: 10px 0;
 }
-.one{
-    background-color: #2BAE0A;
+.one {
+  background-color: #2bae0a;
 }
-.two{
-    background-color: #F1CC07;
+.two {
+  background-color: #f1cc07;
 }
-.three{
-    background-color: #00507C;
+.three {
+  background-color: #00507c;
 }
 /* Partner */
-.partner{
-    padding: 50px 0;
+.partner {
+  padding: 50px 0;
 }
-
 
 .partner .partner-container {
   /* position: relative; */
@@ -309,14 +391,14 @@
   /* padding-top: 45%; */
   background-color: rgba(35, 4, 4, 0.51);
 }
-.partner-place{
-    width: 400px;
-    height: 400px;
-    background: rgba(35, 4, 4, 0.51);
-    border-radius: 25px;
-    align-items: center;
-    justify-content: space-around;
-    padding: 15px;
+.partner-place {
+  width: 400px;
+  height: 400px;
+  background: rgba(35, 4, 4, 0.51);
+  border-radius: 25px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px;
 }
 .partner-item {
   /* position: absolute; */
@@ -324,13 +406,13 @@
   width: 150px;
   height: 150px;
   border-radius: 25px;
-  background-color: #00507C;
-  transition: .5s;
+  background-color: #00507c;
+  transition: 0.5s;
   cursor: pointer;
 }
-.partner-item:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: .5s;
+.partner-item:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0.5s;
 }
 /* Footer */
 #footer {
@@ -395,9 +477,9 @@
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
-  transition: .5s;
+  transition: 0.5s;
 }
-#contact-submit:hover{
+#contact-submit:hover {
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-  transition: .5s;
+  transition: 0.5s;
 }

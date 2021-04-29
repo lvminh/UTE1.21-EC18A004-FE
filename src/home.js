@@ -8,17 +8,21 @@ function Home() {
     function Submit(message) {
         alert('Submit : ' + message);
     }
+    function clickNav(){
+        let a=document.querySelector('.nav-link');
+        console.log('Okay');
+    };
 
   return (
     <div className="page">
-             {/* Header */}
+        {/* Header */}
         <div className="header">
              <div className="container-fluid">
                 <div className="logo">
                 <Logo />
                 </div>
                 <div className="navlinks">
-                    <Links className="nav-link" name="Customer" link="#"/>
+                    <Links className="nav-link active" name="Customer" link="#"  />
                     <Links className="nav-link" name="Partner" link="#"/>
                     <Links className="nav-link" name="About Us" link="#"/>
                     <Links className="nav-link" name="Account" link="#"/>
@@ -26,8 +30,8 @@ function Home() {
                 <RedButton className="btn-red gonow" name="GoNow"/>
             </div>
         </div>
-            {/* Main */}
-            <div className="main">
+        {/* Main */}
+        <div className="main">
                 {/* Slider */}
                 <div className="slider">
                     <div className="container row">
@@ -40,8 +44,8 @@ function Home() {
                         </div>
                     </div>
                     <div className="button">
-                        <button className="slider-btn" id="prev"><i className="ti-arrow-left"></i></button>
-                        <button className="slider-btn" id="next"><i className="ti-arrow-right"></i></button>
+                        <button className="slider-btn" id="prev"><i className="ti-arrow-left" ></i></button>
+                        <button className="slider-btn" id="next"><i className="ti-arrow-right" ></i></button>
                     </div>
                 </div>
                 <div className="container">
@@ -98,8 +102,8 @@ function Home() {
                     </div>
                 </div>
                 </div>
-                {/* Modal */}
-                <div className="modal">
+        {/* Modal */}
+        <div className="modal">
                     <h1 className="modal-title">Modal Operation</h1>
                     <div className="container">
                         <div className="operation row">
@@ -124,8 +128,8 @@ function Home() {
                         </div>
                     </div>
                     </div>
-                {/* Partner */}
-                <div className="partner">
+        {/* Partner */}
+        <div className="partner">
                         <h1 className="title">Loyal partner</h1>
                         <div className="container">
                             <div className='row'>
@@ -144,8 +148,8 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                {/* Footer */}
-                <div id="footer" className="bg-red">
+        {/* Footer */}
+        <div id="footer" className="bg-red">
                     <div className="col-2" id='social'>
                         <h4>Email: EasyGo@gmail.com.vn</h4>
                         <h4>Phone: 0982.682.326</h4>
@@ -172,7 +176,7 @@ function Home() {
                         </div>
                     </div>            
             </div>
-        </div>
+    </div>
   );
 }
 
