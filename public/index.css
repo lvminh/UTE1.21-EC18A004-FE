@@ -13,7 +13,7 @@
 
 body {
   background-color: #f1cc07;
-  position: relative;
+  /* position: relative; */
   /* height: 200px; */
 }
 
@@ -37,4 +37,7 @@ body {
   bottom: -300px;
   z-index: -1;
 }
-
+.contain{
+  position: relative;
+  overflow: hidden;
+}
