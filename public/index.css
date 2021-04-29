@@ -1,0 +1,39 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+}
+
+@font-face {
+    font-family: avenir;
+    src: url(../src/assets/fonts/AvenirRoman.otf);
+}
+
+body {
+    background-color: #f1cc07;
+    min-height: 2000px;
+    max-width: 1366px;
+    position: relative;
+}
+
+.rec {
+    position: absolute;
+    width: 70%;
+    padding-top: 100%;
+    background: #D50000;
+    transform: rotate(142.89deg);
+    z-index: -1;
+}
+
+#above-bg {
+    left: -11%;
+    top: -10%;
+}
+
+/* ?? */
+#bottom-bg {
+    bottom: -500px;
+    right: -500px;
+}
