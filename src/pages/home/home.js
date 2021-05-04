@@ -1,8 +1,8 @@
-import './assets/css/home.css';
-import './assets/fonts/themify-icons/themify-icons.css';
-import Logo from './components/logo';
-import Links from './components/navLink';
-import RedButton from './components/redButton';
+import '../../assets/css/home.css';
+import '../../assets/fonts/themify-icons/themify-icons.css';
+import Logo from '../../components/home/navbar/logo';
+import Links from '../../components/home/navbar/navLink';
+import RedButton from '../../components/home/redButton';
 // import {Image} from 'react-native'
 function Home() {
     function Submit(message) {
