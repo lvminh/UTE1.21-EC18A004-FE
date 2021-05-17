@@ -1,6 +1,6 @@
 {
-  "short_name": "EasyGo",
-  "name": "Connecting shipping company",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "Logo.png",
+      "src": "logo192.png",
       "type": "image/png",
-      "sizes": "166x77"
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
