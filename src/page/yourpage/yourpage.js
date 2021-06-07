@@ -119,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontSize: 25,
-        fontFamily: "AV",
         fontWeight: 700,
         fontFamily: "BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif"
     },
@@ -211,7 +210,7 @@ function Yourpage() {
                                     </div>
                                     <h4>Hello, {firstName}!</h4>
                                     <div className="bell">
-                                        <img src={bell}></img>
+                                        <img src={bell} alt="Bell"></img>
                                         <div className="noti">05</div>
                                     </div>
                                 </div>

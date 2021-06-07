@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Home from './page/home/Home';
 import Yourpage from './page/yourpage/yourpage';
 import Regist from './page/regist/regist';
+import Admin from './page/admin/admin';
 // import index from './page/home';
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
                   
              </Route>
              <Route exact path="/">
-                  <Home></Home>
+                  <Admin></Admin>
                   
              </Route>
            </Switch>
