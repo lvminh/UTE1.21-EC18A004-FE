@@ -1,13 +1,14 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 // import '../public/css/Font.css'
-import Navbar from './components/Navbar';
-import moduleName from 'module'
+// import Navbar from './components/Navbar';
+// import moduleName from 'module'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Home from './page/home/Home';
 import Yourpage from './page/yourpage/yourpage';
 import Regist from './page/regist/regist';
 import Admin from './page/admin/admin';
+import Partner from './page/partner/partner';
 // import index from './page/home';
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
                   
              </Route>
              <Route exact path="/">
-                  <Admin></Admin>
+                  <Partner></Partner>
                   
              </Route>
            </Switch>

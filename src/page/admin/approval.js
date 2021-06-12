@@ -23,9 +23,14 @@ import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-import magnifier from '../../assets/magnifier.png';
+import SearchIcon from '@material-ui/icons/Search';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import CheckIcon from '@material-ui/icons/Check';
+import InfoIcon from '@material-ui/icons/Info';
+import Divider from '@material-ui/core/Divider';
+import Modal from '@material-ui/core/Modal';
 // useStyles
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     whiteLine: {
         backgroundColor: 'white',
         height: 50,
@@ -40,8 +45,29 @@ const useStyles = makeStyles({
     roundBtn: {
         borderRadius: 25,
         color: 'white'
-    }
-})
+    },
+    infoModal: {
+        position: 'absolute',
+        width: 600,
+        minHeight: 300,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: '25px',
+        padding: theme.spacing(2, 4, 3),
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    },
+    decideModal: {
+        position: 'absolute',
+        width: 400,
+        minHeight: 200,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(2, 4, 3),
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }
+}))
 // styled table
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -61,8 +87,8 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
   
-  function createData(name, username, phone, email) {
-    return { name, username, phone, email};
+  function createData(company, name, phone, email) {
+    return { company, name, phone, email};
   }
   // data test
   const rows = [
@@ -70,6 +96,7 @@ const StyledTableCell = withStyles((theme) => ({
     createData('Công ty vận chuyển GoJek', 'GoJek', '0909020211', 'gojekCompany@gmail.com'),
     createData('Công ty cổ phần AhaMove', 'Ahamove', '0909020212', 'ahamoveCompany@gmail.com'),
     createData('Công ty cổ phần Lalamove', 'Lalamove', '0909020213', 'lalamoveCompany@gmail.com'),
+    createData('Công ty cổ phần Bee', 'Bee', '0909020214', 'beeCompany@gmail.com'),
     createData('Công ty cổ phần Bee', 'Bee', '0909020214', 'beeCompany@gmail.com'),
   ];
 
@@ -111,6 +138,113 @@ TablePaginationActions.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
 };
+// modal
+
+function Info(props) {
+    const classes = useStyles();
+    
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const Line = (props) => {
+        return <p><b>{props.attr}</b> {props.content}</p>
+    }
+  
+    const body = (
+      <div className={classes.infoModal}>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN ĐỐI TÁC</h2>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <Line attr='Công ty:' content={props.value.company}></Line>
+        <Line attr='Tên viết tắt:' content={props.value.name}></Line>
+        <Line attr='Email:' content={props.value.email}></Line>
+        <Line attr='Số điện thoại:' content={props.value.phone}></Line>
+        <Line attr='Địa chỉ trụ sở:' content={props.value.company}></Line>
+        <Line attr='Ngày đăng ký hợp tác:' content={props.value.company}></Line>
+        <Line attr='Gói đăng ký:' content={props.value.company}></Line>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <Button variant="contained" style={{backgroundColor: 'green'}} className={classes.roundBtn}>Hợp tác</Button>  
+        <Button variant="contained" style={{backgroundColor: 'red', marginLeft: 25}} className={classes.roundBtn}>Từ chối</Button>
+      </div>
+    );
+  
+    return (
+      <>
+        <IconButton variant='contained' onClick={handleOpen} title='Chi tiết'>
+            <InfoIcon color='primary' size='large'></InfoIcon>
+        </IconButton>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          {body}
+        </Modal>
+      </>
+    );
+}
+
+function Decide(props) {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const body = props.type === 'Yes' ? (
+        <div className={classes.decideModal}>
+            <h2 style={{textAlign:'center', color: 'green'}}>XÁC NHẬN HỢP TÁC</h2>
+            <Divider style={{margin: '20px 0'}}></Divider>
+            <p style={{textAlign: 'justify'}}>Bạn đang xác nhận hợp tác với công ty <b>{props.value.name}</b> cũng như đồng ý với hợp đồng đã đưa ra. Bằng việc nhấn xác nhận, hệ thống sẽ tạo tài khoản và gửi mail cho đối tác xác nhận việc hợp tác.</p>
+            <Divider style={{margin: '20px 0'}}></Divider>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Button variant="contained" style={{backgroundColor: 'green', color: 'white'}}>Xác nhận</Button>
+                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
+            </div>
+        </div>
+    ) : (
+        <div className={classes.decideModal}>
+            <h2 style={{textAlign:'center', color: 'red'}}>XÁC NHẬN TỪ CHỐI</h2>
+            <Divider style={{margin: '20px 0'}}></Divider>
+            <p style={{textAlign: 'justify'}}>Bạn đang xác nhận từ chối công ty <b>{props.value.name}</b>. Bằng việc nhấn xác nhận, hệ thống sẽ gửi mail cho đối tác xác nhận hủy bỏ hợp tác.</p>
+            <Divider style={{margin: '20px 0'}}></Divider>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Xác nhận</Button>
+                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
+            </div>
+        </div>
+    );
+    
+    return (
+    <>
+        {props.type === 'Yes' ?
+            <IconButton variant='contained' onClick={handleOpen} title='Đồng ý'>
+                <CheckIcon style={{color:'green'}}></CheckIcon>
+            </IconButton>
+            :
+            <IconButton variant='contained' onClick={handleOpen} title='Từ chối'>
+            <NotInterestedIcon style={{color:'red'}}></NotInterestedIcon>
+            </IconButton>
+            
+        }
+        <Modal
+        open={open}
+        onClose={handleClose}
+        >
+        {body}
+        </Modal>
+    </>
+    );
+}
 
 // main component
 const Approval = (props) => {
@@ -125,11 +259,9 @@ const Approval = (props) => {
         setPage(newPage);
     };
 
-    const handleOnSearchChange = (event, newSearch) => {
-        setSearch(newSearch);
-    };
-
     const handleOnSearchClick = () => {
+        if(search === '')
+            return;
         alert(search);
     };
 
@@ -137,8 +269,8 @@ const Approval = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'black'}}>
-                        Enterprise Approval
+                    <Typography variant="h6" style={{color: 'blue'}}>
+                        DUYỆT HỢP TÁC DOANH NGHIỆP
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -153,15 +285,14 @@ const Approval = (props) => {
                 >
                     <Grid item sm={6} style={{padding: '10px 24px'}}>
                         <div className="searchBar">
-                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search ..." onChange={handleOnSearchChange}/>
+                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Tìm kiếm ..." 
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            onKeyDown={e => {if(e.key === 'Enter') handleOnSearchClick()}}/>
                             <button id="searchQuerySubmit" type="button" name="searchQuerySubmit" onClick={handleOnSearchClick}>
-                                <img src={magnifier} height={24} width={24}/>
+                                <SearchIcon style={{height:24,width:24}}></SearchIcon>
                             </button>
                         </div>
-                    </Grid>
-                    <Grid container item sm={6} direction='row-reverse' alignItems="center">
-                        <Button variant="contained" style={{backgroundColor: 'red', marginLeft: 25}} className={classes.roundBtn}>Xóa</Button>
-                        <Button variant="contained" style={{backgroundColor: 'green'}} className={classes.roundBtn}>Duyệt</Button>
                     </Grid>
                 </Grid>
     {/*------------------------- TABLE data  ------------------------------------*/}
@@ -169,30 +300,28 @@ const Approval = (props) => {
                 <Table className={classes.table} aria-label="table pagination">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center"></StyledTableCell>
-                        <StyledTableCell align="center">Name</StyledTableCell>
-                        <StyledTableCell align="center">Logo</StyledTableCell>
-                        <StyledTableCell align="center">Username</StyledTableCell>
+                        <StyledTableCell align="center">Tác vụ</StyledTableCell>
+                        <StyledTableCell align="center">Công ty</StyledTableCell>
+                        <StyledTableCell align="center">Thương hiệu</StyledTableCell>
                         <StyledTableCell align="center">Email</StyledTableCell>
-                        <StyledTableCell align="center">Phone</StyledTableCell>
+                        <StyledTableCell align="center">Hotline</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
-                    ).map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell align="center">
-                                <input type='checkbox'/>
+                    ).map((row, index) => (
+                        <StyledTableRow key={index}>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>
+                                <Info value={row}></Info>
+                                <Decide type='Yes' value={row}></Decide>
+                                <Decide type='No' value={row}></Decide>
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">
-                                <p>Trống</p>
-                            </StyledTableCell>
-                            <StyledTableCell align="center">{row.username}</StyledTableCell>
-                            <StyledTableCell align="center">{row.email}</StyledTableCell>
-                            <StyledTableCell align="center">{row.phone}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.company}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.email}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.phone}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 

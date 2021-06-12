@@ -12,13 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import avatar from '../../assets/user.jpg';
 //pages
-import Approval from './approval';
-import BusinessState from './businessstate';
-import CustomerList from './customerlist';
-import ServicePack from './servicepack';
-import PartnerList from './partnerlist';
-import OrderList from './orderlist';
-
+import UnitPrice from './unitprice';
+import PartnerOrderList from './partnerorderlist';
 const useStyles = makeStyles((theme) => ({
     links: {
         fontSize: 16,
@@ -81,7 +76,7 @@ function a11yProps(index) {
     };
 }
 
-const Admin = (props) => {
+const Partner = (props) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
    
@@ -91,7 +86,7 @@ const Admin = (props) => {
 
     return(
         <div className="admin-cover">
-            <div className="sidebar">
+            <div className="sidebar" style={{backgroundColor: 'rgb(255 103 103)'}}>
                 <div className={classes.linksContainer}>
                     <Tabs
                         orientation="vertical"
@@ -100,13 +95,13 @@ const Admin = (props) => {
                         onChange={handleChange}
                         aria-label="Vertical tabs"
                         className={classes.tabs}
+                        indicatorColor='primary'
                     >
-                        <Tab label="Phê duyệt doanh nghiệp" {...a11yProps(0)} className={classes.links}/>
-                        <Tab label="Tài khoản khách hàng" {...a11yProps(1)} className={classes.links}/>
-                        <Tab label="Tài khoản đối tác" {...a11yProps(2)} className={classes.links}/>
-                        <Tab label="Gói dịch vụ" {...a11yProps(3)} className={classes.links}/>
-                        <Tab label="Quản lý đơn hàng" {...a11yProps(4)} className={classes.links}/>
-                        <Tab label="Tình hình kinh doanh" {...a11yProps(5)} className={classes.links}/>
+                        <Tab label="Quản lý đơn giá" {...a11yProps(0)} className={classes.links}/>
+                        <Tab label="Quản lý đơn hàng" {...a11yProps(1)} className={classes.links}/>
+                        <Tab label="Gói dịch vụ" {...a11yProps(2)} className={classes.links}/>
+                        <Tab label="Mã giảm giá" {...a11yProps(3)} className={classes.links}/>
+                        <Tab label="Tình hình kinh doanh" {...a11yProps(4)} className={classes.links}/>
                     </Tabs>
                 </div>
                 <Button variant="contained" color="primary" style={{backgroundColor: 'black'}} id='logout-btn'>Đăng xuất</Button>
@@ -118,28 +113,25 @@ const Admin = (props) => {
                             <Avatar alt="Avatar" src={avatar} className={classes.large} />
                         </IconButton>
                         <Typography variant="h6" color="inherit" style={{float:'right'}}>
-                            Quản trị viên
+                            Doanh nghiệp
                         </Typography>
                     </Toolbar>
                 </AppBar>
                 <div className="content">
                     <TabPanel value={value} index={0}>
-                        <Approval></Approval>
+                        <UnitPrice></UnitPrice>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <CustomerList></CustomerList>
+                        <PartnerOrderList></PartnerOrderList>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <PartnerList></PartnerList>
+                        {/* <PartnerList></PartnerList> */}
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <ServicePack></ServicePack>
+                        {/* <ServicePack></ServicePack> */}
                     </TabPanel>
                     <TabPanel value={value} index={4}>
-                        <OrderList></OrderList>
-                    </TabPanel>
-                    <TabPanel value={value} index={5}>
-                        <BusinessState></BusinessState>
+                        {/* <OrderList></OrderList> */}
                     </TabPanel>
                 </div>
             </div>
@@ -147,4 +139,4 @@ const Admin = (props) => {
     );
 }
 
-export default Admin;
+export default Partner;

@@ -57,16 +57,6 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)',
     },
-    decideModal: {
-        position: 'absolute',
-        width: 400,
-        minHeight: 200,
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-      }
 }))
 // styled table
 const StyledTableCell = withStyles((theme) => ({
@@ -79,26 +69,26 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableCell);
   
-const StyledTableRow = withStyles((theme) => ({
-root: {
-    '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
     },
-},
-}))(TableRow);
+  }))(TableRow);
   
-function createData(name, username, phone, email, address, dayofbirth, state) {
-return { name, username, phone, email, address, dayofbirth, state};
-}
-// data test
-const rows = [
-createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000', true),
-createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000', true),
-createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000', true),
-createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000', true),
-createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000', true),
-createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'duccong113@gmail.com', 'Khanh Hoa', '31/01/2000', true),
-];
+  function createData(username, company, name, phone, email) {
+    return { username, company, name, phone, email};
+  }
+  // data test
+  const rows = [
+    createData('grab', 'Công ty cổ phần Grab', 'Grab', '0909020210', 'grabCompany@gmail.com'),
+    createData('gojek','Công ty vận chuyển GoJek', 'GoJek', '0909020211', 'gojekCompany@gmail.com'),
+    createData('ahamove','Công ty cổ phần AhaMove', 'Ahamove', '0909020212', 'ahamoveCompany@gmail.com'),
+    createData('lalamove','Công ty cổ phần Lalamove', 'Lalamove', '0909020213', 'lalamoveCompany@gmail.com'),
+    createData('bee','Công ty cổ phần Bee', 'Bee', '0909020214', 'beeCompany@gmail.com'),
+    createData('bee','Công ty cổ phần Bee', 'Bee', '0909020214', 'beeCompany@gmail.com'),
+  ];
 
 // pagination component
 function TablePaginationActions(props) {
@@ -156,24 +146,25 @@ function Info(props) {
     const Line = (props) => {
         return <p><b>{props.attr}</b> {props.content}</p>
     }
-
+  
     const body = (
       <div className={classes.infoModal}>
-        <h2 style={{textAlign:'center'}}>THÔNG TIN KHÁCH HÀNG</h2>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN ĐỐI TÁC</h2>
         <Divider style={{margin: '20px 0'}}></Divider>
         <Line attr='Tài khoản:' content={props.value.username}></Line>
-        <Line attr='Họ tên:' content={props.value.name}></Line>
+        <Line attr='Công ty:' content={props.value.company}></Line>
+        <Line attr='Tên viết tắt:' content={props.value.name}></Line>
         <Line attr='Email:' content={props.value.email}></Line>
         <Line attr='Số điện thoại:' content={props.value.phone}></Line>
-        <Line attr='Địa chỉ:' content={props.value.address}></Line>
-        <Line attr='Ngày sinh:' content={props.value.dayofbirth}></Line>
+        <Line attr='Địa chỉ trụ sở:' content={props.value.company}></Line>
+        <Line attr='Ngày đăng ký hợp tác:' content={props.value.company}></Line>
         <Line attr='Gói đăng ký:' content={props.value.company}></Line>
         <Divider style={{margin: '20px 0'}}></Divider>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Chặn truy cập</Button>
+            <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Hủy hợp tác</Button>
             <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
         </div>
-        </div>
+      </div>
     );
   
     return (
@@ -191,61 +182,8 @@ function Info(props) {
     );
 }
 
-function Access(props) {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const body = props.value.state === true ? (
-        <div className={classes.decideModal}>
-            <h2 style={{textAlign:'center', color: 'red'}}>KHÓA TÀI KHOẢN</h2>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <p>Bạn chắc chắn muốn khóa tài khoản <b>{props.value.username}</b> chứ ?</p>
-            <p style={{textAlign: 'justify'}}>Tài khoản này sẽ không truy cập được cho đến khi bạn kích hoạt trở lại.</p>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Chặn</Button>
-                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
-            </div>
-        </div>
-    ) : (
-        <div className={classes.decideModal}>
-            <h2 style={{textAlign:'center', color: 'green'}}>KÍCH HOẠT TÀI KHOẢN</h2>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <p style={{textAlign: 'justify'}}>Tài khoản <b>{props.value.username}</b> sẽ được kích hoạt trở lại.</p>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" style={{backgroundColor: 'green', color: 'white'}}>Kích hoạt</Button>
-                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
-            </div>
-        </div>
-    );
-    
-    return (
-    <>
-        {props.value.state === true ?
-            <Button style={{backgroundColor: 'green', color: 'white'}} variant='contained' onClick={handleOpen} title='Chặn'>Đang hoạt động</Button>
-            :
-            <Button style={{backgroundColor: 'red', color: 'white'}} variant='contained' onClick={handleOpen} title='Kích hoạt'>Chặn truy cập</Button>
-        }
-        <Modal
-        open={open}
-        onClose={handleClose}
-        >
-        {body}
-        </Modal>
-    </>
-    );
-}
-
 // main component
-const CustomerList = (props) => {
+const PartnerList = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [search, setSearch] = React.useState('');
@@ -268,7 +206,7 @@ const CustomerList = (props) => {
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
                     <Typography variant="h6" style={{color: 'blue'}}>
-                        QUẢN LÝ TÀI KHOẢN KHÁCH HÀNG
+                        QUẢN LÝ TÀI KHOẢN DOANH NGHIỆP
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -300,10 +238,9 @@ const CustomerList = (props) => {
                     <TableRow>
                         <StyledTableCell align="center">Tác vụ</StyledTableCell>
                         <StyledTableCell align="center">Tài khoản</StyledTableCell>
-                        <StyledTableCell align="center">Họ tên</StyledTableCell>
+                        <StyledTableCell align="center">Tên</StyledTableCell>
                         <StyledTableCell align="center">Email</StyledTableCell>
-                        <StyledTableCell align="center">SĐT</StyledTableCell>
-                        <StyledTableCell align="center">Trạng thái</StyledTableCell>
+                        <StyledTableCell align="center">Hotline</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -319,9 +256,6 @@ const CustomerList = (props) => {
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.email}</StyledTableCell>
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.phone}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>
-                                <Access value={row}></Access>    
-                            </StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -355,4 +289,4 @@ const CustomerList = (props) => {
     );
 }
 
-export default CustomerList;
+export default PartnerList;

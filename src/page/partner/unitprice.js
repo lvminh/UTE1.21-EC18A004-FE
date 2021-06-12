@@ -24,8 +24,6 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import SearchIcon from '@material-ui/icons/Search';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import CheckIcon from '@material-ui/icons/Check';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
@@ -191,61 +189,8 @@ function Info(props) {
     );
 }
 
-function Access(props) {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const body = props.value.state === true ? (
-        <div className={classes.decideModal}>
-            <h2 style={{textAlign:'center', color: 'red'}}>KHÓA TÀI KHOẢN</h2>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <p>Bạn chắc chắn muốn khóa tài khoản <b>{props.value.username}</b> chứ ?</p>
-            <p style={{textAlign: 'justify'}}>Tài khoản này sẽ không truy cập được cho đến khi bạn kích hoạt trở lại.</p>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Chặn</Button>
-                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
-            </div>
-        </div>
-    ) : (
-        <div className={classes.decideModal}>
-            <h2 style={{textAlign:'center', color: 'green'}}>KÍCH HOẠT TÀI KHOẢN</h2>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <p style={{textAlign: 'justify'}}>Tài khoản <b>{props.value.username}</b> sẽ được kích hoạt trở lại.</p>
-            <Divider style={{margin: '20px 0'}}></Divider>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Button variant="contained" style={{backgroundColor: 'green', color: 'white'}}>Kích hoạt</Button>
-                <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
-            </div>
-        </div>
-    );
-    
-    return (
-    <>
-        {props.value.state === true ?
-            <Button style={{backgroundColor: 'green', color: 'white'}} variant='contained' onClick={handleOpen} title='Chặn'>Đang hoạt động</Button>
-            :
-            <Button style={{backgroundColor: 'red', color: 'white'}} variant='contained' onClick={handleOpen} title='Kích hoạt'>Chặn truy cập</Button>
-        }
-        <Modal
-        open={open}
-        onClose={handleClose}
-        >
-        {body}
-        </Modal>
-    </>
-    );
-}
-
 // main component
-const CustomerList = (props) => {
+const UnitPrice = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [search, setSearch] = React.useState('');
@@ -268,7 +213,7 @@ const CustomerList = (props) => {
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
                     <Typography variant="h6" style={{color: 'blue'}}>
-                        QUẢN LÝ TÀI KHOẢN KHÁCH HÀNG
+                        QUẢN LÝ ĐƠN GIÁ
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -303,7 +248,6 @@ const CustomerList = (props) => {
                         <StyledTableCell align="center">Họ tên</StyledTableCell>
                         <StyledTableCell align="center">Email</StyledTableCell>
                         <StyledTableCell align="center">SĐT</StyledTableCell>
-                        <StyledTableCell align="center">Trạng thái</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -319,9 +263,6 @@ const CustomerList = (props) => {
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.email}</StyledTableCell>
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.phone}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>
-                                <Access value={row}></Access>    
-                            </StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -355,4 +296,4 @@ const CustomerList = (props) => {
     );
 }
 
-export default CustomerList;
+export default UnitPrice;

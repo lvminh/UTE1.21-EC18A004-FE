@@ -7,7 +7,7 @@ function Slider() {
     return (
         <>
             <div>
-                <img src={image}></img>
+                <img src={image} alt='ship'></img>
             </div>
             <div className="container covr row">
                 <div className="col-md-6 offset-md-6 decription">
@@ -18,7 +18,7 @@ function Slider() {
                             <div className="button show">
                                 Show
                                 <div className="arrow">
-                                    <img src={arrowbtn}></img>
+                                    <img src={arrowbtn} alt='arrow'></img>
                                 </div>
                             </div>
                         </div>
@@ -28,10 +28,10 @@ function Slider() {
             </div>
             <div className="btnpage">
                     <div className="btnprev">
-                        <img src={arrow}></img>
+                        <img src={arrow} alt='arrowprev'></img>
                     </div>
                     <div className="btnnext">
-                        <img src={arrow2}></img>
+                        <img src={arrow2} alt='arrownext'></img>
                     </div>
             </div>
         </>

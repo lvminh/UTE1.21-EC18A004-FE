@@ -23,12 +23,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-import SearchIcon from '@material-ui/icons/Search';
-import InfoIcon from '@material-ui/icons/Info';
-import Divider from '@material-ui/core/Divider';
-import Modal from '@material-ui/core/Modal';
+import magnifier from '../../assets/magnifier.png';
 // useStyles
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     whiteLine: {
         backgroundColor: 'white',
         height: 50,
@@ -43,19 +40,8 @@ const useStyles = makeStyles((theme) => ({
     roundBtn: {
         borderRadius: 25,
         color: 'white'
-    },
-    infoModal: {
-        position: 'absolute',
-        width: 600,
-        minHeight: 200,
-        backgroundColor: theme.palette.background.paper,
-        borderRadius: '25px',
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-    },
-}))
+    }
+})
 // styled table
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -65,34 +51,28 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
       fontSize: 14,
     },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-root: {
-    '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-    },
-},
-}))(TableRow);
+  }))(TableCell);
   
-function createData(code, duration, price) {
-return { code, duration, price};
-}
-// data test
-const rows = [
-createData('DV2021-24', 24, 10000000),
-createData('DV2021-36', 36, 15000000),
-createData('DV2021-48', 48, 20000000),
-createData('DV2021-12', 12, 500000),
-createData('DV2021-1', 1, 100000),
-createData('DV2021-6', 6, 250000),
-createData('DV2021-24', 24, 10000000),
-createData('DV2021-36', 36, 15000000),
-createData('DV2021-48', 48, 20000000),
-createData('DV2021-12', 12, 500000),
-createData('DV2021-1', 1, 100000),
-createData('DV2021-6', 6, 250000),
-];
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
+  
+  function createData(name, username, phone, email, address, dayofbirth) {
+    return { name, username, phone, email, address, dayofbirth};
+  }
+  // data test
+  const rows = [
+    createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000'),
+    createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000'),
+    createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000'),
+    createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000'),
+    createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000'),
+    createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'duccong113@gmail.com', 'Khanh Hoa', '31/01/2000'),
+  ];
 
 // pagination component
 function TablePaginationActions(props) {
@@ -132,57 +112,9 @@ TablePaginationActions.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
 };
-// modal
-
-function Info(props) {
-    const classes = useStyles();
-    
-    const [open, setOpen] = React.useState(false);
-  
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const Line = (props) => {
-        return <p><b>{props.attr}</b> {props.content}</p>
-    }
-  
-    const body = (
-      <div className={classes.infoModal}>
-        <h2 style={{textAlign:'center'}}>THÔNG TIN GÓI</h2>
-        <Divider style={{margin: '20px 0'}}></Divider>
-        <Line attr='Mã:' content={props.value.code}></Line>
-        <Line attr='Thời hạn:' content={props.value.duration + ' tháng'}></Line>
-        <Line attr='Giá:' content={props.value.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}></Line>
-        <Divider style={{margin: '20px 0'}}></Divider>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <Button variant="contained" style={{backgroundColor: 'blue', color: 'white'}}>Chỉnh sửa</Button>
-            <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
-        </div>
-      </div>
-    );
-  
-    return (
-      <>
-        <IconButton variant='contained' onClick={handleOpen} title='Chi tiết'>
-            <InfoIcon color='primary' size='large'></InfoIcon>
-        </IconButton>
-        <Modal
-          open={open}
-          onClose={handleClose}
-        >
-          {body}
-        </Modal>
-      </>
-    );
-}
 
 // main component
-const ServicePack = (props) => {
+const OrderList = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [search, setSearch] = React.useState('');
@@ -205,7 +137,7 @@ const ServicePack = (props) => {
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
                     <Typography variant="h6" style={{color: 'blue'}}>
-                        QUẢN LÝ GÓI DỊCH VỤ
+                        QUẢN LÝ ĐƠN HÀNG
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -220,14 +152,18 @@ const ServicePack = (props) => {
                 >
                     <Grid item sm={6} style={{padding: '10px 24px'}}>
                         <div className="searchBar">
-                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Tìm kiếm ..." 
+                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Tìm kiếm ..."
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                             onKeyDown={e => {if(e.key === 'Enter') handleOnSearchClick()}}/>
                             <button id="searchQuerySubmit" type="button" name="searchQuerySubmit" onClick={handleOnSearchClick}>
-                                <SearchIcon style={{height:24,width:24}}></SearchIcon>
+                                <img src={magnifier} height={24} width={24} alt='find'/>
                             </button>
                         </div>
+                    </Grid>
+                    <Grid container item sm={6} direction='row-reverse' alignItems="center">
+                        <Button variant="contained" style={{backgroundColor: 'red', marginLeft: 25}} className={classes.roundBtn}>Block</Button>
+                        <Button variant="contained" style={{backgroundColor: 'green'}} className={classes.roundBtn}>Chỉnh sửa</Button>
                     </Grid>
                 </Grid>
     {/*------------------------- TABLE data  ------------------------------------*/}
@@ -235,24 +171,28 @@ const ServicePack = (props) => {
                 <Table className={classes.table} aria-label="table pagination">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center">Tác vụ</StyledTableCell>
-                        <StyledTableCell align="center">Mã gói dịch vụ</StyledTableCell>
-                        <StyledTableCell align="center">Thời hạn</StyledTableCell>
-                        <StyledTableCell align="center">Giá</StyledTableCell>
+                        <StyledTableCell align="center"></StyledTableCell>
+                        <StyledTableCell align="center">Tài khoản</StyledTableCell>
+                        <StyledTableCell align="center">Tên công ty</StyledTableCell>
+                        <StyledTableCell align="center">Địa chỉ</StyledTableCell>
+                        <StyledTableCell align="center">Email</StyledTableCell>
+                        <StyledTableCell align="center">SĐT</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
-                    ).map((row, index) => (
-                        <StyledTableRow key={index}>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>
-                                <Info value={row}></Info>
+                    ).map((row) => (
+                        <StyledTableRow key={row.name}>
+                            <StyledTableCell align="center">
+                                <input type='checkbox'/>
                             </StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.code}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.duration} tháng</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</StyledTableCell>
+                            <StyledTableCell align="center">{row.username}</StyledTableCell>
+                            <StyledTableCell align="center">{row.name}</StyledTableCell>
+                            <StyledTableCell align="center">{row.address}</StyledTableCell>
+                            <StyledTableCell align="center">{row.email}</StyledTableCell>
+                            <StyledTableCell align="center">{row.phone}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -286,4 +226,4 @@ const ServicePack = (props) => {
     );
 }
 
-export default ServicePack;
+export default OrderList;
