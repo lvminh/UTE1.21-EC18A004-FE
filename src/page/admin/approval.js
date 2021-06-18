@@ -269,7 +269,7 @@ const Approval = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
+                    <Typography variant="h6" style={{color: 'black'}}>
                         DUYỆT HỢP TÁC DOANH NGHIỆP
                     </Typography>
                 </Toolbar>

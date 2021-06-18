@@ -22,11 +22,13 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import TextField from '@material-ui/core/TextField';
 
 import SearchIcon from '@material-ui/icons/Search';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
+import AddIcon from '@material-ui/icons/Add';
 // useStyles
 const useStyles = makeStyles((theme) => ({
     whiteLine: {
@@ -75,23 +77,18 @@ root: {
 },
 }))(TableRow);
   
-function createData(code, duration, price) {
-return { code, duration, price};
+function createData(code, percent, amount) {
+return { code, percent, amount};
 }
 // data test
 const rows = [
-createData('DV2021-24', 24, 10000000),
-createData('DV2021-36', 36, 15000000),
-createData('DV2021-48', 48, 20000000),
-createData('DV2021-12', 12, 500000),
-createData('DV2021-1', 1, 100000),
-createData('DV2021-6', 6, 250000),
-createData('DV2021-24', 24, 10000000),
-createData('DV2021-36', 36, 15000000),
-createData('DV2021-48', 48, 20000000),
-createData('DV2021-12', 12, 500000),
-createData('DV2021-1', 1, 100000),
-createData('DV2021-6', 6, 250000),
+createData('GG20-20', 20, 1000),
+createData('GG20-15', 15, 1500),
+createData('GG20-10', 10, 2000),
+createData('GG20-50', 50, 500),
+createData('GG20-45', 45, 800),
+createData('GG20-5', 5, 2500),
+createData('GG20-80', 80, 10),
 ];
 
 // pagination component
@@ -153,11 +150,11 @@ function Info(props) {
   
     const body = (
       <div className={classes.infoModal}>
-        <h2 style={{textAlign:'center'}}>THÔNG TIN GÓI</h2>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN MÃ GIẢM GIÁ</h2>
         <Divider style={{margin: '20px 0'}}></Divider>
         <Line attr='Mã:' content={props.value.code}></Line>
-        <Line attr='Thời hạn:' content={props.value.duration + ' tháng'}></Line>
-        <Line attr='Giá:' content={props.value.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}></Line>
+        <Line attr='Phần trăm:' content={props.value.percent + '%'}></Line>
+        <Line attr='Giá:' content={props.value.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}></Line>
         <Divider style={{margin: '20px 0'}}></Divider>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <Button variant="contained" style={{backgroundColor: 'blue', color: 'white'}}>Chỉnh sửa</Button>
@@ -182,7 +179,7 @@ function Info(props) {
 }
 
 // main component
-const ServicePack = (props) => {
+const Discount = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [search, setSearch] = React.useState('');
@@ -205,7 +202,7 @@ const ServicePack = (props) => {
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
                     <Typography variant="h6" style={{color: 'black'}}>
-                        QUẢN LÝ GÓI DỊCH VỤ
+                        QUẢN LÝ MÃ GIẢM GIÁ
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -235,10 +232,10 @@ const ServicePack = (props) => {
                 <Table className={classes.table} aria-label="table pagination">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center">Tác vụ</StyledTableCell>
-                        <StyledTableCell align="center">Mã gói dịch vụ</StyledTableCell>
-                        <StyledTableCell align="center">Thời hạn</StyledTableCell>
-                        <StyledTableCell align="center">Giá</StyledTableCell>
+                        <StyledTableCell align="center">Chi tiết</StyledTableCell>
+                        <StyledTableCell align="center">Mã giảm</StyledTableCell>
+                        <StyledTableCell align="center">Phần trăm giảm</StyledTableCell>
+                        <StyledTableCell align="center">Số lượng</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -251,8 +248,8 @@ const ServicePack = (props) => {
                                 <Info value={row}></Info>
                             </StyledTableCell>
                             <StyledTableCell align="center" style={{padding:'8px'}}>{row.code}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.duration} tháng</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.percent} %</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -286,4 +283,4 @@ const ServicePack = (props) => {
     );
 }
 
-export default ServicePack;
+export default Discount;

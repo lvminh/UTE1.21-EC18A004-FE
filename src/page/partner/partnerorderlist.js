@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 // import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 // table
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -22,8 +22,16 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
+import SearchIcon from '@material-ui/icons/Search';
+import InfoIcon from '@material-ui/icons/Info';
+import Divider from '@material-ui/core/Divider';
+import Modal from '@material-ui/core/Modal';
+
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // useStyles
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     whiteLine: {
         backgroundColor: 'white',
         height: 50,
@@ -38,8 +46,29 @@ const useStyles = makeStyles({
     roundBtn: {
         borderRadius: 25,
         color: 'white'
-    }
-})
+    },
+    infoModal: {
+        position: 'absolute',
+        width: 600,
+        minHeight: 300,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: '25px',
+        padding: theme.spacing(2, 4, 3),
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    },
+    decideModal: {
+        position: 'absolute',
+        width: 400,
+        minHeight: 200,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(2, 4, 3),
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }
+}))
 // styled table
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -49,28 +78,19 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
       fontSize: 14,
     },
-  }))(TableCell);
+}))(TableCell);
   
-  const StyledTableRow = withStyles((theme) => ({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
+const StyledTableRow = withStyles((theme) => ({
+root: {
+    '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
     },
-  }))(TableRow);
-  
-  function createData(name, username, phone, email, address, dayofbirth) {
-    return { name, username, phone, email, address, dayofbirth};
-  }
-  // data test
-  const rows = [
-    createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000'),
-    createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000'),
-    createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000'),
-    createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000'),
-    createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000'),
-    createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'duccong113@gmail.com', 'Khanh Hoa', '31/01/2000'),
-  ];
+},
+}))(TableRow);
+
+// data test
+const rows = [
+];
 
 // pagination component
 function TablePaginationActions(props) {
@@ -110,11 +130,94 @@ TablePaginationActions.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
 };
+// modal
 
+function Info(props) {
+    const classes = useStyles();
+    
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const Line = (props) => {
+        return <p><b>{props.attr}</b> {props.content}</p>
+    }
+
+    const body = (
+      <div className={classes.infoModal}>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN ĐƠN HÀNG</h2>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <Line attr='Tài khoản:' content={props.value.username}></Line>
+        <Line attr='Họ tên:' content={props.value.name}></Line>
+        <Line attr='Email:' content={props.value.email}></Line>
+        <Line attr='Số điện thoại:' content={props.value.phone}></Line>
+        <Line attr='Địa chỉ:' content={props.value.address}></Line>
+        <Line attr='Ngày sinh:' content={props.value.dayofbirth}></Line>
+        <Line attr='Gói đăng ký:' content={props.value.company}></Line>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Chặn truy cập</Button>
+            <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
+        </div>
+        </div>
+    );
+  
+    return (
+      <>
+        <IconButton variant='contained' onClick={handleOpen} title='Chi tiết'>
+            <InfoIcon color='primary' size='large'></InfoIcon>
+        </IconButton>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          {body}
+        </Modal>
+      </>
+    );
+}
+
+//tab panel
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <>{children}</>
+            )}
+        </div>
+    );
+}
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
 // main component
-const PartnerOrderList = (props) => {
+const UnitPrice = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
+    const [panel, setPanel] = React.useState(0);
     const [search, setSearch] = React.useState('');
     const rowsPerPage = 5;
 
@@ -122,6 +225,10 @@ const PartnerOrderList = (props) => {
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+    };
+
+    const handleChangePanel = (event, newPanel) => {
+        setPanel(newPanel);
     };
 
     const handleOnSearchClick = () => {
@@ -134,7 +241,7 @@ const PartnerOrderList = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
+                    <Typography variant="h6" style={{color: 'black'}}>
                         QUẢN LÝ ĐƠN HÀNG
                     </Typography>
                 </Toolbar>
@@ -150,7 +257,7 @@ const PartnerOrderList = (props) => {
                 >
                     <Grid item sm={6} style={{padding: '10px 24px'}}>
                         <div className="searchBar">
-                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Tìm kiếm ..."
+                            <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Tìm kiếm ..." 
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                             onKeyDown={e => {if(e.key === 'Enter') handleOnSearchClick()}}/>
@@ -159,9 +266,18 @@ const PartnerOrderList = (props) => {
                             </button>
                         </div>
                     </Grid>
-                    <Grid container item sm={6} direction='row-reverse' alignItems="center">
-                        <Button variant="contained" style={{backgroundColor: 'red', marginLeft: 25}} className={classes.roundBtn}>Block</Button>
-                        <Button variant="contained" style={{backgroundColor: 'green'}} className={classes.roundBtn}>Chỉnh sửa</Button>
+                    <Grid item sm={6} style={{padding: '10px 24px'}}>
+                        <Tabs
+                        value={panel}
+                        onChange={handleChangePanel}
+                        indicatorColor="secondary"
+                        style={{color:'white'}}
+                        variant="fullWidth"
+                        >
+                            <Tab label="Đã nhận" {...a11yProps(0)} style={{backgroundColor: '#55bee2'}}/>
+                            <Tab label="Đang giao hàng" {...a11yProps(1)} style={{backgroundColor: 'rgb(255 91 91)'}}/>
+                            <Tab label="Hoàn thành" {...a11yProps(2)} style={{backgroundColor: 'green'}}/>
+                        </Tabs>
                     </Grid>
                 </Grid>
     {/*------------------------- TABLE data  ------------------------------------*/}
@@ -169,28 +285,29 @@ const PartnerOrderList = (props) => {
                 <Table className={classes.table} aria-label="table pagination">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center"></StyledTableCell>
+                        <StyledTableCell align="center">Tác vụ</StyledTableCell>
                         <StyledTableCell align="center">Tài khoản</StyledTableCell>
-                        <StyledTableCell align="center">Tên công ty</StyledTableCell>
-                        <StyledTableCell align="center">Địa chỉ</StyledTableCell>
+                        <StyledTableCell align="center">Họ tên</StyledTableCell>
                         <StyledTableCell align="center">Email</StyledTableCell>
                         <StyledTableCell align="center">SĐT</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
+                    <TabPanel value={panel} index={0}>
+                        
+                    </TabPanel>
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
-                    ).map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell align="center">
-                                <input type='checkbox'/>
+                    ).map((row, index) => (
+                        <StyledTableRow key={index}>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>
+                                <Info value={row}></Info>
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.username}</StyledTableCell>
-                            <StyledTableCell align="center">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">{row.address}</StyledTableCell>
-                            <StyledTableCell align="center">{row.email}</StyledTableCell>
-                            <StyledTableCell align="center">{row.phone}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.username}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.email}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.phone}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -224,4 +341,4 @@ const PartnerOrderList = (props) => {
     );
 }
 
-export default PartnerOrderList;
+export default UnitPrice;

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     infoModal: {
         position: 'absolute',
         width: 600,
-        minHeight: 300,
+        minHeight: 200,
         backgroundColor: theme.palette.background.paper,
         borderRadius: '25px',
         padding: theme.spacing(2, 4, 3),
@@ -55,16 +55,6 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)',
     },
-    decideModal: {
-        position: 'absolute',
-        width: 400,
-        minHeight: 200,
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-      }
 }))
 // styled table
 const StyledTableCell = withStyles((theme) => ({
@@ -75,8 +65,8 @@ const StyledTableCell = withStyles((theme) => ({
     body: {
       fontSize: 14,
     },
-  }))(TableCell);
-  
+}))(TableCell);
+
 const StyledTableRow = withStyles((theme) => ({
 root: {
     '&:nth-of-type(odd)': {
@@ -85,17 +75,23 @@ root: {
 },
 }))(TableRow);
   
-function createData(name, username, phone, email, address, dayofbirth, state) {
-return { name, username, phone, email, address, dayofbirth, state};
+function createData(code, duration, price) {
+return { code, duration, price};
 }
 // data test
 const rows = [
-createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000', true),
-createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000', true),
-createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000', true),
-createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000', true),
-createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000', true),
-createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'duccong113@gmail.com', 'Khanh Hoa', '31/01/2000', true),
+createData('DV2021-24', 24, 10000000),
+createData('DV2021-36', 36, 15000000),
+createData('DV2021-48', 48, 20000000),
+createData('DV2021-12', 12, 500000),
+createData('DV2021-1', 1, 100000),
+createData('DV2021-6', 6, 250000),
+createData('DV2021-24', 24, 10000000),
+createData('DV2021-36', 36, 15000000),
+createData('DV2021-48', 48, 20000000),
+createData('DV2021-12', 12, 500000),
+createData('DV2021-1', 1, 100000),
+createData('DV2021-6', 6, 250000),
 ];
 
 // pagination component
@@ -154,24 +150,20 @@ function Info(props) {
     const Line = (props) => {
         return <p><b>{props.attr}</b> {props.content}</p>
     }
-
+  
     const body = (
       <div className={classes.infoModal}>
-        <h2 style={{textAlign:'center'}}>THÔNG TIN KHÁCH HÀNG</h2>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN GÓI</h2>
         <Divider style={{margin: '20px 0'}}></Divider>
-        <Line attr='Tài khoản:' content={props.value.username}></Line>
-        <Line attr='Họ tên:' content={props.value.name}></Line>
-        <Line attr='Email:' content={props.value.email}></Line>
-        <Line attr='Số điện thoại:' content={props.value.phone}></Line>
-        <Line attr='Địa chỉ:' content={props.value.address}></Line>
-        <Line attr='Ngày sinh:' content={props.value.dayofbirth}></Line>
-        <Line attr='Gói đăng ký:' content={props.value.company}></Line>
+        <Line attr='Mã:' content={props.value.code}></Line>
+        <Line attr='Thời hạn:' content={props.value.duration + ' tháng'}></Line>
+        <Line attr='Giá:' content={props.value.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}></Line>
         <Divider style={{margin: '20px 0'}}></Divider>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <Button variant="contained" style={{backgroundColor: 'red', color: 'white'}}>Chặn truy cập</Button>
+            <Button variant="contained" style={{backgroundColor: 'blue', color: 'white'}}>Chỉnh sửa</Button>
             <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Hủy</Button>
         </div>
-        </div>
+      </div>
     );
   
     return (
@@ -190,7 +182,7 @@ function Info(props) {
 }
 
 // main component
-const UnitPrice = (props) => {
+const PartnerServicePack = (props) => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [search, setSearch] = React.useState('');
@@ -212,8 +204,8 @@ const UnitPrice = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
-                        QUẢN LÝ ĐƠN GIÁ
+                    <Typography variant="h6" style={{color: 'black'}}>
+                        QUẢN LÝ GÓI DỊCH VỤ
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -244,10 +236,9 @@ const UnitPrice = (props) => {
                     <TableHead>
                     <TableRow>
                         <StyledTableCell align="center">Tác vụ</StyledTableCell>
-                        <StyledTableCell align="center">Tài khoản</StyledTableCell>
-                        <StyledTableCell align="center">Họ tên</StyledTableCell>
-                        <StyledTableCell align="center">Email</StyledTableCell>
-                        <StyledTableCell align="center">SĐT</StyledTableCell>
+                        <StyledTableCell align="center">Mã gói dịch vụ</StyledTableCell>
+                        <StyledTableCell align="center">Thời hạn</StyledTableCell>
+                        <StyledTableCell align="center">Giá</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -259,10 +250,9 @@ const UnitPrice = (props) => {
                             <StyledTableCell align="center" style={{padding:'8px'}}>
                                 <Info value={row}></Info>
                             </StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.username}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.email}</StyledTableCell>
-                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.phone}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.code}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.duration} tháng</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 
@@ -296,4 +286,4 @@ const UnitPrice = (props) => {
     );
 }
 
-export default UnitPrice;
+export default PartnerServicePack;

@@ -24,8 +24,6 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import SearchIcon from '@material-ui/icons/Search';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import CheckIcon from '@material-ui/icons/Check';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
@@ -205,7 +203,7 @@ const PartnerList = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
+                    <Typography variant="h6" style={{color: 'black'}}>
                         QUẢN LÝ TÀI KHOẢN DOANH NGHIỆP
                     </Typography>
                 </Toolbar>

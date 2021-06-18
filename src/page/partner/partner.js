@@ -12,8 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import avatar from '../../assets/user.jpg';
 //pages
-import UnitPrice from './unitprice';
+import ServicePrice from './serviceprice';
 import PartnerOrderList from './partnerorderlist';
+import PartnerServicePack from './partnerservicepack';
+import Discount from './discount';
+
 const useStyles = makeStyles((theme) => ({
     links: {
         fontSize: 16,
@@ -79,11 +82,11 @@ function a11yProps(index) {
 const Partner = (props) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-   
+    
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    
     return(
         <div className="admin-cover">
             <div className="sidebar" style={{backgroundColor: 'rgb(255 103 103)'}}>
@@ -97,7 +100,7 @@ const Partner = (props) => {
                         className={classes.tabs}
                         indicatorColor='primary'
                     >
-                        <Tab label="Quản lý đơn giá" {...a11yProps(0)} className={classes.links}/>
+                        <Tab label="Quản lý giá dịch vụ" {...a11yProps(0)} className={classes.links}/>
                         <Tab label="Quản lý đơn hàng" {...a11yProps(1)} className={classes.links}/>
                         <Tab label="Gói dịch vụ" {...a11yProps(2)} className={classes.links}/>
                         <Tab label="Mã giảm giá" {...a11yProps(3)} className={classes.links}/>
@@ -119,16 +122,16 @@ const Partner = (props) => {
                 </AppBar>
                 <div className="content">
                     <TabPanel value={value} index={0}>
-                        <UnitPrice></UnitPrice>
+                        <ServicePrice></ServicePrice>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <PartnerOrderList></PartnerOrderList>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        {/* <PartnerList></PartnerList> */}
+                        <PartnerServicePack></PartnerServicePack>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        {/* <ServicePack></ServicePack> */}
+                        <Discount></Discount>
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         {/* <OrderList></OrderList> */}

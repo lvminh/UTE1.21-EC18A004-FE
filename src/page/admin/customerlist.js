@@ -24,8 +24,6 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import SearchIcon from '@material-ui/icons/Search';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import CheckIcon from '@material-ui/icons/Check';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
@@ -93,7 +91,7 @@ return { name, username, phone, email, address, dayofbirth, state};
 // data test
 const rows = [
 createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000', true),
-createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000', true),
+createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000', false),
 createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000', true),
 createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000', true),
 createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000', true),
@@ -267,7 +265,7 @@ const CustomerList = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
+                    <Typography variant="h6" style={{color: 'black'}}>
                         QUẢN LÝ TÀI KHOẢN KHÁCH HÀNG
                     </Typography>
                 </Toolbar>

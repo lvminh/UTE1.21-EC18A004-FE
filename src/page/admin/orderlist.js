@@ -23,9 +23,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-import magnifier from '../../assets/magnifier.png';
+import SearchIcon from '@material-ui/icons/Search';
+import InfoIcon from '@material-ui/icons/Info';
+import Divider from '@material-ui/core/Divider';
+import Modal from '@material-ui/core/Modal';
 // useStyles
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     whiteLine: {
         backgroundColor: 'white',
         height: 50,
@@ -40,8 +43,19 @@ const useStyles = makeStyles({
     roundBtn: {
         borderRadius: 25,
         color: 'white'
-    }
-})
+    },
+    infoModal: {
+        position: 'absolute',
+        width: 600,
+        minHeight: 200,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: '25px',
+        padding: theme.spacing(2, 4, 3),
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    },
+}))
 // styled table
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -61,17 +75,19 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
   
-  function createData(name, username, phone, email, address, dayofbirth) {
-    return { name, username, phone, email, address, dayofbirth};
+const stateName = [{name: 'Đã nhận', color: 'blue'},{name: 'Đang giao', color: 'orange'} , {name: 'Đã giao', color: 'green'}];
+
+  function createData(name, username, phone, address, total, partner, state) {
+    return { name, username, phone, address, total, partner, state};
   }
   // data test
   const rows = [
-    createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'tamhuynh@gmail.com', 'Ba Ria', '26/05/2000'),
-    createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'dannk@gmail.com', 'Ba Ria', '13/12/2000'),
-    createData('Ho Duy Tan', 'tanho1111', '0909020212', 'tancubu@gmail.com', 'Tien Giang', '11/11/2000'),
-    createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'quynhntn@gmail.com', 'Quang Ngai', '02/09/2000'),
-    createData('Pham Thanh Trung', 'trungpham', '0909020214', 'trungpham@gmail.com', 'TPHCM', '24/01/2000'),
-    createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'duccong113@gmail.com', 'Khanh Hoa', '31/01/2000'),
+    createData('Huynh Thanh Tam', 'tamhuynh2605', '0909020210', 'Ba Ria', 26500, 'Grab', 0),
+    createData('Nguyen Khoa Danh', 'dannk1312', '0909020211', 'Ba Ria', 40000, 'Ahamove', 1),
+    createData('Ho Duy Tan', 'tanho1111', '0909020212', 'Tien Giang', 20000, 'GoJek', 1),
+    createData('Nguyen Thi Nhu Quynh', 'quynhntn', '0909020213', 'Quang Ngai', 15500, 'Grab', 0),
+    createData('Pham Thanh Trung', 'trungpham', '0909020214', 'TPHCM', 84000, 'Lalamove', 2),
+    createData('Phung Vinh Duc', 'ducphung113', '0909020215', 'Khanh Hoa', 96000, 'Bee', 2),
   ];
 
 // pagination component
@@ -113,6 +129,57 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
+// Modal
+
+function Info(props) {
+    const classes = useStyles();
+    
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const Line = (props) => {
+        return <p><b>{props.attr}</b> {props.content}</p>
+    }
+  
+    const body = (
+      <div className={classes.infoModal}>
+        <h2 style={{textAlign:'center'}}>THÔNG TIN ĐƠN HÀNG</h2>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <Line attr='Tên khách hàng:' content={props.value.name}></Line>
+        <Line attr='Username:' content={props.value.username}></Line>
+        <Line attr='Địa chỉ:' content={props.value.address}></Line>
+        <Line attr='Công ty giao hàng:' content={props.value.partner}></Line>
+        <Line attr='Tổng hóa đơn:' content={props.value.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}></Line>
+        <Divider style={{margin: '20px 0'}}></Divider>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Typography variant="h3" style={{color: stateName[props.value.state].color}}>{stateName[props.value.state].name}</Typography>
+            <Button variant="contained" style={{backgroundColor: 'gray', color: 'white'}} onClick={handleClose}>Đóng</Button>
+        </div>
+      </div>
+    );
+  
+    return (
+      <>
+        <IconButton variant='contained' onClick={handleOpen} title='Chi tiết'>
+            <InfoIcon color='primary' size='large'></InfoIcon>
+        </IconButton>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          {body}
+        </Modal>
+      </>
+    );
+}
+
 // main component
 const OrderList = (props) => {
     const classes = useStyles();
@@ -136,7 +203,7 @@ const OrderList = (props) => {
         <div className='main-container'>
             <AppBar position="static" className={classes.whiteLine}>
                 <Toolbar variant='dense'>
-                    <Typography variant="h6" style={{color: 'blue'}}>
+                    <Typography variant="h6" style={{color: 'black'}}>
                         QUẢN LÝ ĐƠN HÀNG
                     </Typography>
                 </Toolbar>
@@ -157,13 +224,9 @@ const OrderList = (props) => {
                             onChange={e => setSearch(e.target.value)}
                             onKeyDown={e => {if(e.key === 'Enter') handleOnSearchClick()}}/>
                             <button id="searchQuerySubmit" type="button" name="searchQuerySubmit" onClick={handleOnSearchClick}>
-                                <img src={magnifier} height={24} width={24} alt='find'/>
+                                <SearchIcon style={{height:24,width:24}}></SearchIcon>
                             </button>
                         </div>
-                    </Grid>
-                    <Grid container item sm={6} direction='row-reverse' alignItems="center">
-                        <Button variant="contained" style={{backgroundColor: 'red', marginLeft: 25}} className={classes.roundBtn}>Block</Button>
-                        <Button variant="contained" style={{backgroundColor: 'green'}} className={classes.roundBtn}>Chỉnh sửa</Button>
                     </Grid>
                 </Grid>
     {/*------------------------- TABLE data  ------------------------------------*/}
@@ -171,12 +234,11 @@ const OrderList = (props) => {
                 <Table className={classes.table} aria-label="table pagination">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center"></StyledTableCell>
-                        <StyledTableCell align="center">Tài khoản</StyledTableCell>
-                        <StyledTableCell align="center">Tên công ty</StyledTableCell>
-                        <StyledTableCell align="center">Địa chỉ</StyledTableCell>
-                        <StyledTableCell align="center">Email</StyledTableCell>
-                        <StyledTableCell align="center">SĐT</StyledTableCell>
+                        <StyledTableCell align="center">Chi tiết</StyledTableCell>
+                        <StyledTableCell align="center">Khách hàng</StyledTableCell>
+                        <StyledTableCell align="center">Công ty giao</StyledTableCell>
+                        <StyledTableCell align="center">Tổng tiền</StyledTableCell>     
+                        <StyledTableCell align="center">Trạng thái</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -185,14 +247,13 @@ const OrderList = (props) => {
                         : rows
                     ).map((row) => (
                         <StyledTableRow key={row.name}>
-                            <StyledTableCell align="center">
-                                <input type='checkbox'/>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>
+                                <Info value={row}></Info>
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.username}</StyledTableCell>
-                            <StyledTableCell align="center">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">{row.address}</StyledTableCell>
-                            <StyledTableCell align="center">{row.email}</StyledTableCell>
-                            <StyledTableCell align="center">{row.phone}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.name}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.partner}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px'}}>{row.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</StyledTableCell>
+                            <StyledTableCell align="center" style={{padding:'8px', color: stateName[row.state].color}}>{stateName[row.state].name}</StyledTableCell>
                         </StyledTableRow>
                     ))}
 
