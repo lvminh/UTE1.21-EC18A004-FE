@@ -25,7 +25,7 @@ function App() {
                   
              </Route>
              <Route exact path="/">
-                  <Admin></Admin>
+                  <Partner></Partner>
                   
              </Route>
            </Switch>
