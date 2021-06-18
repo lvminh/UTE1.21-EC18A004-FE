@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         backgroundColor: 'none',
         alignItems: "center",
-        justifyContent:"space-between"
+        justifyContent: "space-between"
     },
     card: {
         background: "#E5E5E5",
@@ -135,7 +135,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 function Yourpage() {
-    const [firstName] = React.useState('Trung');
     const classes = useStyles();
     const [fixx, setFix] = React.useState(true);
     const [value, setValue] = React.useState(0);
@@ -143,11 +142,27 @@ function Yourpage() {
     const [oldPassword, setOldPassword] = React.useState();
     const [newPassword, setNewPassword] = React.useState();
     const [confirmPassword, setConfirmPassword] = React.useState();
-    const [name, setName] = React.useState('Phạm Thành Trung');
-    const [phone, setPhone] = React.useState('0344153425');
-    const [mail, setMail] = React.useState('trung08052000@gmail.com');
-    const [address, setAddress] = React.useState('0344153425');
+    const user = JSON.parse(window.localStorage.getItem('user-infor'));
+    const [name, setName] = React.useState(user.info.link.name);
+    const [phone, setPhone] = React.useState(user.info.account.phone);
+    const [mail, setMail] = React.useState(user.info.account.email);
+    const [address, setAddress] = React.useState('9/4 Tân Xuân');
+    const fName = name.split(' ');
+    const [firstName] = React.useState(fName[fName.length - 1]);
     
+
+    // if (localStorage.getItem('loginGG') === 'YES') {
+    //     setName(user.name);
+    //     setPhone(user.phone);
+    //     setMail(user.email);
+    //     const fName = name.split(' ');
+    //     setFName(fName[fName.length - 1]);
+    // } else {
+    //     setName(user.info.link.name);
+    //     setPhone(user.info.account.phone);
+    //     setMail(user.info.account.email);
+    // }
+
     const handleChange = (event, newValue) => {
         // this.value1=newValue;
         setValue(newValue);
@@ -209,7 +224,7 @@ function Yourpage() {
                                     <div className="avatar">
                                         <Avatar className={classes.small} alt="Remy Sharp" src={avtImage} />
                                     </div>
-                                    <h4>Hello, {firstName}!</h4>
+                                    <h4>Xin chào, {firstName}!</h4>
                                     <div className="bell">
                                         <img src={bell}></img>
                                         <div className="noti">05</div>
@@ -306,10 +321,10 @@ function Yourpage() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="card-content colRight">
-                                                                    <h3>Phạm Thành Trung</h3>
-                                                                    <p>trung08052000@gmail.com</p>
-                                                                    <p>0344153***</p>
-                                                                    <p>Username: Nhokbeobun</p>
+                                                                    <h3>{name}</h3>
+                                                                    <p>{mail}</p>
+                                                                    <p>{phone}</p>
+                                                                    <p>Username: {mail}</p>
                                                                     <p>Password:****************</p>
                                                                     <div className="btnFix">Edit</div>
                                                                 </div>
@@ -401,9 +416,9 @@ function Yourpage() {
                                                         onChange={handleChange2}
                                                         className={classes.tabs2}
                                                     >
-                                                        <Tab label="Account" {...a11yProps(0)} />
-                                                        <Tab label="Change Password" {...a11yProps(1)} />
-                                                        <Tab label="Log Out" {...a11yProps(2)} />
+                                                        <Tab label="Tài khoản" {...a11yProps(0)} />
+                                                        <Tab label="Đổi mật khẩu" {...a11yProps(1)} />
+                                                        <Tab label="Đăng xuất" {...a11yProps(2)} />
                                                     </Tabs>
                                                 </div>
                                                 <div className='col-9'>
@@ -413,13 +428,13 @@ function Yourpage() {
                                                                 <div className="InforUser">
                                                                     <div className="avatar col-3">
                                                                         <Avatar className={classes.large} alt="Remy Sharp" src={avtImage} />
-                                                                        <span>Edit</span>
+                                                                        <span>Sửa</span>
                                                                     </div>
                                                                     <div className="informationUser col-9">
                                                                         <div className="row informationUser_account">
                                                                             <TextField disabled={fixx}
                                                                                 id="standard-disabled"
-                                                                                label="Name:"
+                                                                                label="Tên:"
                                                                                 value={name}
                                                                                 onChange={handleChangeName}
                                                                                 className="col-12" />
@@ -427,7 +442,7 @@ function Yourpage() {
                                                                         </div>
                                                                         <div className="row informationUser_account">
                                                                             <TextField disabled={fixx} id="standard-disabled"
-                                                                                label="Phone:"
+                                                                                label="Điện thoại:"
                                                                                 value={phone}
                                                                                 onChange={handleChangePhone}
                                                                                 className="col-12" />
@@ -445,7 +460,7 @@ function Yourpage() {
                                                                         <div className="row informationUser_account">
                                                                             <TextField disabled={fixx}
                                                                                 id="standard-disabled"
-                                                                                label="Address:"
+                                                                                label="Địa chỉ:"
                                                                                 value={address}
                                                                                 onChange={handleChangeAddress}
                                                                                 className="col-12" />
@@ -454,7 +469,7 @@ function Yourpage() {
                                                                     </div>
 
                                                                 </div>
-                                                                <div className="btnFix col-2 offset-6" onClick={fix}>Edit</div>
+                                                                <div className="btnFix col-2 offset-6" onClick={fix}>Sửa</div>
                                                             </CardContent>
 
                                                         </Card>
@@ -468,7 +483,7 @@ function Yourpage() {
                                                                             <div className="row informationUser_changepassword">
                                                                                 <TextField
                                                                                     id="standard-multiline-flexible"
-                                                                                    label="Old Password:"
+                                                                                    label="Mật khẩu cũ:"
                                                                                     value={oldPassword}
                                                                                     onChange={handleChangeInput}
                                                                                     className="col-12"
@@ -478,7 +493,7 @@ function Yourpage() {
                                                                             <div className="row informationUser_changepassword">
                                                                                 <TextField
                                                                                     id="standard-multiline-flexible"
-                                                                                    label="New Password:"
+                                                                                    label="Mật khẩu mới:"
                                                                                     value={newPassword}
                                                                                     onChange={handleChangeInputNewPass}
                                                                                     className="col-12"
@@ -488,7 +503,7 @@ function Yourpage() {
                                                                             <div className="row informationUser_changepassword">
                                                                                 <TextField
                                                                                     id="standard-multiline-flexible"
-                                                                                    label="Confirm Password:"
+                                                                                    label="Xác nhận mật khẩu:"
                                                                                     value={confirmPassword}
                                                                                     onChange={handleChangeInputConfirmPass}
                                                                                     className="col-12"

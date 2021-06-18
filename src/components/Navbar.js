@@ -34,7 +34,7 @@ function Navbar() {
                 </li>
             </ul>
         </div>
-        <div className="button gonow" onClick={()=> router.push("/regist")}>
+        <div className="button gonow" onClick={()=> router.push("/gonow")}>
             GoNow
         </div>
     </div>

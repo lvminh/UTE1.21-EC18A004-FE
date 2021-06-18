@@ -106,10 +106,9 @@
   width: 178px;
   text-align: center;
   display: block;
-  /* padding: 5px 0; */
   border-radius: 25px;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -117,7 +116,7 @@
   transition: 0.3s;
 }
 .arrow img {
-  width: 32px;
+  width: 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,7 +178,7 @@
   font-family: Arial;
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 23px;
 }
 .btnpage {
@@ -452,7 +451,7 @@
   line-height: 117.8%;
 }
 .form_regist {
-  height: 700px;
+  /* height: 700px; */
   background: linear-gradient(180deg, #fbd40b 0%, #d50000 100%);
   border-radius: 25px;
 }
@@ -817,4 +816,117 @@ button:focus {
   height: 22px;
   font-size: 15px;
   text-align: center;
+}
+.goNowPage{
+  background-color: #083f5e;
+  height: 1307px;
+  min-width: 100%;
+  padding: 50px;
+  color: white;
+}
+.goNowCover {
+  height: 240vh;
+}
+.Route{
+  border-radius: 25px;
+  background-color: #0e9333;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Delivery-Unit{
+  border-radius: 25px;
+  background-color: #ec627b;
+  padding: 15px;
+  margin-top: 15px;
+}
+.bgcolor{
+  background-color: rgba(10, 1, 1, 0.3);
+  border-radius: 25px;
+  padding: 15px;
+  margin-top: 1.2rem;
+}
+.bgcolor .MuiInput-underline:before{
+  display: none;
+}
+.bgcolor .MuiInput-underline::after{
+  display: none;
+}
+.bgcolor #standard-multiline-flexible{
+  background-color: white;
+  color: black;
+}
+.bgcolor .MuiFormControl-root .Mui-focused{
+  color: white;
+}
+.bgcolor .MuiFormControl-root .Mui-focused label{
+  left: 0px;
+}
+.bgcolor .MuiFormControl-root label{
+  z-index: 1;
+  color: black;
+  top: 2px;
+  left: 10px;
+}
+.bgcolor .MuiFormControl-root input{
+  padding: 10px;
+  border-radius: 25px;
+}
+.namePhonePickUp{
+  margin: 8px 0;
+}
+.Delivery-Unit .MuiFormControl-root .Mui-focused{
+  color: white;
+}
+.Delivery-Unit .MuiInput-formControl{
+  color: black;
+  padding: 0px 10px;
+  border-radius: 25px;
+  background-color: white;
+}
+.Delivery-Unit #demo-simple-select{
+  color: black;
+  background: transparent;
+}
+.Delivery-Unit .MuiInput-underline:before{
+  display: none;
+}
+.Delivery-Unit .MuiInput-underline::after{
+  display: none;
+}
+.Delivery-Unit .MuiInputLabel-formControl{
+  z-index: 1;
+  /* top: 5px; */
+  left: 15px;
+}
+.Delivery-Unit .MuiFormControl-root .Mui-focused .MuiInputLabel-formControl{
+  top: 0px;
+}
+.choosePrice{
+  border-radius: 25px;
+  background-color: white;
+  margin-top: 15px;
+  padding: 15px;
+  color: black;
+}
+.NewOrder{
+  padding: 15px;
+  background-color: #FBD40B;
+  border-radius: 25px;
+
+}
+.NewOrder .MuiInputLabel-outlined{
+  color: white;
+}
+.NewOrder .MuiOutlinedInput-notchedOutline{
+  border:1px solid white
+}
+.NewOrder input{
+  color: white;
+}
+.ggMap{
+  margin-top: 15px;
+  border-radius: 25px;
+  overflow: hidden;
 }

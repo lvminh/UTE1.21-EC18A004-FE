@@ -14,9 +14,9 @@ function Slider() {
                     <div className="row">
                         <div className="decrip col-md-8 offset-md-2">
                             <h2>EasyGo</h2>
-                            <p>lLorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde rerum maiores libero quis minima doloribus mollitia quas sint, quia sequi ducimus possimus, fugiat distinctio totam.</p>
+                            <p>Một hệ thống giao hàng đạt chuẩn với chất lượng quốc tế. Với sự liên kết cùng các đơn vị giao hàng hứa hẹn sẽ mang đến cho bạn một trải nghiệm giao hàng tuyệt với.</p>
                             <div className="button show">
-                                Show
+                                Chi tiết
                                 <div className="arrow">
                                     <img src={arrowbtn}></img>
                                 </div>

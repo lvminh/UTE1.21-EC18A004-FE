@@ -13,7 +13,7 @@ import { useHistory } from 'react-router';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import GoogleLogin from 'react-google-login';
 // import Slider from '../../components/Slider'
 const StyledButton = withStyles({
     root: {
@@ -32,6 +32,10 @@ const StyledButton = withStyles({
 
 })(Button);
 const useStyles = makeStyles((theme) => ({
+    Roler: {
+        width: '75%',
+        margin: '20px auto'
+    },
     formControl: {
         // margin: theme.spacing(1),
         minWidth: '100%',
@@ -46,15 +50,25 @@ const useStyles = makeStyles((theme) => ({
     d: {
         marginTop: theme.spacing(100),
     },
+    loginGG: {
+        marginBottom: 10,
+    },
 }));
 function Regist(props) {
     let router = useHistory()
     const { children, className, ...other } = props;
     const classes = useStyles();
-    const [defaultt, setRole] = React.useState('OK');
-    const handleChange = (event) => {
-        setRole(event.target.value);
-    };
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [phone, setPhone] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [address, setAddress] = React.useState("");
+
+    const [role, setRole] = React.useState('');
+    localStorage.setItem("loginGG", "NO")
+    // const handleChange = (event) => {
+    //     setRole(event.target.value);
+    // };
     const callRegist = () => {
         let a = document.querySelector('.loginPage');
         let b = document.querySelector('.RegistPage');
@@ -68,7 +82,107 @@ function Regist(props) {
         // c.style.display="block";
         // d.style.display="block"
         console.log(a, b);
+    };
+    // const responseGoogle=(response)=>{
+    //     // router.push("/yourpage")
+    //     console.log(response);
+    //     console.log(response.profileObj.email);
+    //     localStorage.setItem("loginGG","YES")
+    //     localStorage.setItem("user-infor",JSON.stringify(response.profileObj))
+    //     // localStorage.setItem("personName",response.profileObj.name)
+    //     // localStorage.setItem("personMail",response.profileObj.email)
+    //     // console.log(localStorage.getItem("person"));
+    //     // registed();
+    // }  
+    const responseGoogleRegist = (response) => {
+        // router.push("/yourpage")
+        console.log(response);
+        console.log(response.profileObj.email);
+        // localStorage.setItem("loginGG","YES")
+        localStorage.setItem("user-infor", JSON.stringify(response.profileObj))
+        // localStorage.setItem("personName",response.profileObj.name)
+        // localStorage.setItem("personMail",response.profileObj.email)
+        // console.log(localStorage.getItem("person"));
+        // registed();
+        if (response.profileObj.email == email) {
+            console.log('oke')
+            registed()
+            router.push("/regist")
+        }
     }
+    async function login() {
+        let item = { email, password };
+        let result = await fetch("http://localhost:5000/account/auth/", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(item)
+        });
+        result = await result.json();
+        console.log(JSON.stringify(result.accessToken));
+        infor(result.accessToken);
+        localStorage.setItem("loginGG", "NO")
+        router.push("/yourpage")
+    }
+    async function infor(id) {
+        let infor = await fetch("http://localhost:5000/account/read", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + id
+            },
+            // body: JSON.stringify('Bearer'+ id)
+        })
+        infor = await infor.json();
+        console.log(JSON.stringify(infor));
+        localStorage.setItem("user-infor", JSON.stringify(infor));
+    }
+    async function registed() {
+        if (role === 'user') {
+            let item = { email, phone, role, password, name };
+            console.log(item)
+            let result = await fetch("http://localhost:5000/account/create/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(item)
+
+            });
+            result = await result.json();
+            console.log(JSON.stringify(result.accessToken));
+            infor(result.accessToken);
+        } else {
+            let item = { email, phone, role, password, name,address };
+            console.log(item)
+            let result = await fetch("http://localhost:5000/account/create/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(item)
+
+            });
+            result = await result.json();
+            console.log(JSON.stringify(result.accessToken));
+            infor(result.accessToken);
+        }
+
+
+        _refreshPage()
+    }
+    function _refreshPage() {
+        console.log("Clicked");
+        window.location.reload();
+    }
+
+
+
     return (
         <>
             <div className="cover registcover">
@@ -85,41 +199,53 @@ function Regist(props) {
                                     </div>
                                     <div className="regist_decription">
                                         <p>
-                                            Where you can safely send goods to your customers, relatives & friends
+                                        Nơi bạn có thể an tâm gửi hàng cho khách hàng, người thân & bạn bè của mình
                                         </p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 registPage_right login">
                                     <div className="form_regist">
-                                        <div className="form_regist-title">Login</div>
+                                        <div className="form_regist-title">Đăng Nhập</div>
                                         <div className="form_regist-child">
-                                            <p>Username:</p>
-                                            <input></input>
+                                            <p>Tên đăng nhập:</p>
+                                            <input type="text" placeholder="Email"
+                                                onChange={(e) => setEmail(e.target.value)}></input>
                                         </div>
                                         <div className="form_regist-child">
-                                            <p>Password:</p>
-                                            <input></input>
+                                            <p>Mật khẩu:</p>
+                                            <input type="password" placeholder="Password"
+                                                onChange={(e) => setPassword(e.target.value)}></input>
                                         </div>
                                         <div className="form_regist-child">
                                             <FormControl className={classes.formControl}>
-                                                <InputLabel id="demo-simple-select-label" className={classes.label}>Role:</InputLabel>
+                                                <InputLabel id="demo-simple-select-label" className={classes.label}>Vai trò:</InputLabel>
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
-                                                    value={defaultt}
-                                                    onChange={handleChange}
+                                                    value={role}
+                                                    onChange={(e) => setRole(e.target.value)}
                                                     className={classes.label}
                                                 >
-                                                    <MenuItem value={1}>User</MenuItem>
-                                                    <MenuItem value={2}>Partner</MenuItem>
+                                                    <MenuItem value={'user'}>Người dùng</MenuItem>
+                                                    <MenuItem value={'company'}>Đối tác</MenuItem>
                                                 </Select>
                                             </FormControl>
                                         </div>
                                         <div className="row buttons">
-                                            <StyledButton onClick={() => router.push("/yourpage")}>Login</StyledButton>
+                                            <StyledButton onClick={login}>Đăng Nhập</StyledButton>
                                         </div>
+                                        {/* <div>
+                                            <GoogleLogin
+                                            className={classes.loginGG}
+                                                clientId="163857639957-rlvbfnhcjrcn5g14ds7vqam720ohcp0b.apps.googleusercontent.com"
+                                                buttonText="Login with Google"
+                                                onSuccess={responseGoogle}
+                                                onFailure={responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                            />
+                                        </div> */}
                                         <div className="row buttons">
-                                            <StyledButton onClick={callRegist}>Create Account</StyledButton>
+                                            <StyledButton onClick={callRegist}>Tạo Tài Khoản</StyledButton>
                                         </div>
                                     </div>
                                 </div>
@@ -132,46 +258,68 @@ function Regist(props) {
                                     </div>
                                     <div className="regist_decription">
                                         <p>
-                                            Register to become our member and get many offers
+                                        Đăng ký trở thành thành viên của chúng tôi và nhận nhiều ưu đãi
                                         </p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 registPage_right registt">
                                     <div className="form_regist">
-                                        <div className="form_regist-title">Create Account</div>
+                                        <div className="form_regist-title">Tạo Tài Khoản</div>
                                         <div className="form_regist-child">
-                                            <p>Username:</p>
-                                            <input></input>
+                                            <p>Tên đăng nhập:</p>
+                                            <input type="text" placeholder="Email"
+                                                onChange={(e) => setEmail(e.target.value)}></input>
+                                        </div>
+
+                                        <div className="form_regist-child">
+                                            <p>Mật khẩu:</p>
+                                            <input type="password" placeholder="Password"
+                                                onChange={(e) => setPassword(e.target.value)}></input>
                                         </div>
                                         <div className="form_regist-child">
-                                            <p>Password:</p>
-                                            <input></input>
+                                            <p>Điện thoại:</p>
+                                            <input type="number" placeholder="Phone"
+                                                onChange={(e) => setPhone(e.target.value)}></input>
                                         </div>
                                         <div className="form_regist-child">
-                                            <p>Phone:</p>
-                                            <input></input>
+                                            <p>Tên:</p>
+                                            <input type="text" placeholder="Name"
+                                                onChange={(e) => setName(e.target.value)}></input>
                                         </div>
-                                        <div className="form_regist-child">
-                                            <p>Email:</p>
-                                            <input></input>
-                                        </div>
-                                        {/* <div className="form_regist-child role">
-                                            <FormControl className={classes.formControl}>
-                                                <InputLabel id="demo-simple-select-label" className={classes.label}>Role:</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    value={defaultt}
-                                                    onChange={handleChange}
-                                                    className={classes.label}
-                                                >
-                                                    <MenuItem value={1}>User</MenuItem>
-                                                    <MenuItem value={2}>Partner</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                        </div> */}
+                                        {role === 'company' ? (
+                                            <div className="form_regist-child">
+                                                <p>Địa chỉ:</p>
+                                                <input type="text" placeholder="Address"
+                                                    onChange={(e) => setAddress(e.target.value)}></input>
+                                            </div>
+                                        ) : (
+                                            <div className="form_regist-child">
+                                            </div>
+                                        )}
+
+                                        <FormControl className={classes.Roler}>
+                                            <InputLabel id="demo-simple-select-label" className={classes.label}>Role:</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={role}
+                                                onChange={(e) => setRole(e.target.value)}
+                                                className={classes.label}
+                                            >
+                                                <MenuItem value={'user'}>User</MenuItem>
+                                                <MenuItem value={'company'}>Partner</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                         <div className="row buttons">
-                                            <StyledButton onClick={() => router.push("/yourpage")}>Login</StyledButton>
+                                            {/* <StyledButton onClick={registed}>Login</StyledButton> */}
+                                            <GoogleLogin
+                                                className={classes.loginGG}
+                                                clientId="163857639957-rlvbfnhcjrcn5g14ds7vqam720ohcp0b.apps.googleusercontent.com"
+                                                buttonText="Xác thực qua Google"
+                                                onSuccess={responseGoogleRegist}
+                                                onFailure={responseGoogleRegist}
+                                                cookiePolicy={'single_host_origin'}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +332,7 @@ function Regist(props) {
                 </div>
                 <div className="bot" />
             </div>
-            
+
         </>
     )
 }
