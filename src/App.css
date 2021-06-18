@@ -3,7 +3,7 @@
   padding-top: 50px;
   position: relative;
   width: 100%;
-  height: 400vh;
+  height: 3000px;
   overflow: hidden;
 }
 .fullheader {
@@ -353,15 +353,15 @@
   background-color: #d40000;
   color: white;
   padding: 32px 0;
-  height: 334px;
+  height: 350px;
   border-radius: 0 0 25px 25px;
   box-shadow: 0px 4px 19px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25),
     0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .footer p {
   font-weight: 500;
-  font-size: 25px;
-  line-height: 34px;
+  font-size: 20px;
+  line-height: 25px;
   /* margin-bottom: 13px; */
 }
 .inputform {
@@ -420,7 +420,7 @@
 }
 
 .registcover {
-  height: 200vh;
+  height: 210vh;
 }
 .registPage {
   background-color: #083f5e;
@@ -930,3 +930,59 @@ button:focus {
   border-radius: 25px;
   overflow: hidden;
 }
+/* Admin section */
+.admin-cover {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+.sidebar {
+    background-color: #F3C110;
+    width: 22%;
+    height: 100%;
+    position: relative;
+    padding: 20px 10px;
+}
+.sidebar > #logout-btn{
+    position: absolute;
+    bottom: 20px;
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 25px;
+}
+.admin-main{
+    position: relative;
+    width: 78%;
+    height: 100%;
+    background-color: #e5e5e5;
+}
+
+/* Search bar */
+  .searchBar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #searchQueryInput {
+    width: 100%;
+    height: 2.8rem;
+    background: #f5f5f5;
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 0 3.5rem 0 1.5rem;
+    font-size: 1rem;
+  }
+  #searchQuerySubmit {
+    width: 3.5rem;
+    height: 2.8rem;
+    margin-left: -3.5rem;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  #searchQuerySubmit:hover {
+    cursor: pointer;
+  }

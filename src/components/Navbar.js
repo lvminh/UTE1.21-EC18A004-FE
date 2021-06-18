@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 // import './App.css';
-import { MenuItem } from '@material-ui/core';
-import { isDOMComponentElement } from 'react-dom/test-utils';
+// import { MenuItem } from '@material-ui/core';
+// import { isDOMComponentElement } from 'react-dom/test-utils';
 import { useHistory } from 'react-router';
 import image from '../assets/Logo.png';
 
@@ -24,7 +24,7 @@ function Navbar() {
                     <a href="/" className="active">Home</a>
                 </li>
                 <li>
-                    <a href="/partner">Partner</a>
+                    <a href="/regist">Partner</a>
                 </li>
                 <li>
                     <a href="/regist" onClick={active}>Account</a>

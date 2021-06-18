@@ -111,20 +111,42 @@ function Regist(props) {
         }
     }
     async function login() {
-        let item = { email, password };
-        let result = await fetch("http://localhost:5000/account/auth/", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(item)
-        });
-        result = await result.json();
-        console.log(JSON.stringify(result.accessToken));
-        infor(result.accessToken);
-        localStorage.setItem("loginGG", "NO")
-        router.push("/yourpage")
+        if(role==='user'){
+            let item = { email, password };
+            let result = await fetch("http://localhost:5000/account/auth/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(item)
+            });
+            result = await result.json();
+            console.log(JSON.stringify(result.accessToken));
+            infor(result.accessToken);
+            localStorage.setItem("loginGG", "NO")
+            router.push("/yourpage")
+        }else if(role==='company'){
+            console.log('company')
+            let item = { email, password };
+            let result = await fetch("http://localhost:5000/account/auth/", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(item)
+            });
+            result = await result.json();
+            console.log(JSON.stringify(result.accessToken));
+            infor(result.accessToken);
+            localStorage.setItem("loginGG", "NO")
+            router.push("/partner")
+        }else if(role==='admin'){
+            router.push("/admin")
+            
+        }
+        
     }
     async function infor(id) {
         let infor = await fetch("http://localhost:5000/account/read", {
@@ -151,7 +173,6 @@ function Regist(props) {
                     "Accept": "application/json",
                 },
                 body: JSON.stringify(item)
-
             });
             result = await result.json();
             console.log(JSON.stringify(result.accessToken));
@@ -228,6 +249,8 @@ function Regist(props) {
                                                 >
                                                     <MenuItem value={'user'}>Người dùng</MenuItem>
                                                     <MenuItem value={'company'}>Đối tác</MenuItem>
+                                                    <MenuItem value={'admin'}>Quản trị</MenuItem>
+
                                                 </Select>
                                             </FormControl>
                                         </div>
@@ -306,8 +329,8 @@ function Regist(props) {
                                                 onChange={(e) => setRole(e.target.value)}
                                                 className={classes.label}
                                             >
-                                                <MenuItem value={'user'}>User</MenuItem>
-                                                <MenuItem value={'company'}>Partner</MenuItem>
+                                                <MenuItem value={'user'}>Người dùng</MenuItem>
+                                                <MenuItem value={'company'}>Đối tác</MenuItem>
                                             </Select>
                                         </FormControl>
                                         <div className="row buttons">
