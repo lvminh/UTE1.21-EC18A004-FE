@@ -22,13 +22,11 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import TextField from '@material-ui/core/TextField';
 
 import SearchIcon from '@material-ui/icons/Search';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
-import AddIcon from '@material-ui/icons/Add';
 // useStyles
 const useStyles = makeStyles((theme) => ({
     whiteLine: {

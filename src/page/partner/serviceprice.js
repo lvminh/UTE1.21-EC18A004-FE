@@ -30,7 +30,6 @@ import Divider from '@material-ui/core/Divider';
 import Modal from '@material-ui/core/Modal';
 import AddIcon from '@material-ui/icons/Add';
 
-import axios from 'axios';
 // useStyles
 const useStyles = makeStyles((theme) => ({
     whiteLine: {
@@ -150,8 +149,6 @@ function Info(props) {
     const [cancelFee, setCancelFee] = React.useState(props.value.cancelFee);
     const [startCost, setStartCost] = React.useState(props.value.startCost);
     const [nextCost, setNextCost] = React.useState('');
-    const [costTable, setCostTable] = React.useState(props.value.costTable);
-    const [surcharge, setSurcharge] = React.useState([]);
 
 
     const handleOpen = () => {
@@ -172,28 +169,28 @@ function Info(props) {
         <Divider style={{margin: '20px 0'}}></Divider>
         <Grid container spacing={2}>
             <Grid item xs={6}>
-                <TextField label="Tên dịch vụ" required fullWidth value={props.value.name} onChange={e => setName(e.target.value)}></TextField><br/>
+                <TextField label="Tên dịch vụ" required fullWidth value={name} onChange={e => setName(e.target.value)}></TextField><br/>
             </Grid>
             <Grid item xs={12}>
-                <TextField label="Mô tả" required fullWidth value={props.value.desc} onChange={e => setDesc(e.target.value)}></TextField>
+                <TextField label="Mô tả" required fullWidth value={desc} onChange={e => setDesc(e.target.value)}></TextField>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Cân nặng tối đa (kg)" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={props.value.maxWeight} onChange={e => setMaxWeight(e.target.value)}></TextField>
+                <TextField label="Cân nặng tối đa (kg)" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={maxWeight} onChange={e => setMaxWeight(e.target.value)}></TextField>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Phí hủy đơn (%)" fullWidth type='number' InputProps={{inputProps: { min: 0, step: 0.1}}} value={props.value.cancelFee} onChange={e => setCancelFee(e.target.value)}></TextField><br/>
+                <TextField label="Phí hủy đơn (%)" fullWidth type='number' InputProps={{inputProps: { min: 0, step: 0.1}}} value={cancelFee} onChange={e => setCancelFee(e.target.value)}></TextField><br/>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Số điểm trung chuyển tối đa" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={props.value.midPoint} onChange={e => setMidPoint(e.target.value)}></TextField>
+                <TextField label="Số điểm trung chuyển tối đa" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={midPoint} onChange={e => setMidPoint(e.target.value)}></TextField>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Phí mỗi điểm (VND)" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={props.value.feePerPoint} onChange={e => setFeePerPoint(e.target.value)}></TextField><br/>
+                <TextField label="Phí mỗi điểm (VND)" fullWidth type='number' InputProps={{inputProps: { min: 0}}} value={feePerPoint} onChange={e => setFeePerPoint(e.target.value)}></TextField><br/>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Giá khởi điểm (VND)" fullWidth required type='number' InputProps={{inputProps: { min: 0}}} value={props.value.startCost} onChange={e => setStartCost(e.target.value)}></TextField>
+                <TextField label="Giá khởi điểm (VND)" fullWidth required type='number' InputProps={{inputProps: { min: 0}}} value={startCost} onChange={e => setStartCost(e.target.value)}></TextField>
             </Grid>
             <Grid item xs={6}>
-                <TextField label="Giá mỗi km sau đó" id='nextCost' fullWidth placeholder='VD: 3:5000,5:5500' required value={props.value.nextCost} onChange={e => setNextCost(e.target.value)}></TextField><br/>
+                <TextField label="Giá mỗi km sau đó" id='nextCost' fullWidth placeholder='VD: 3:5000,5:5500' required value={nextCost} onChange={e => setNextCost(e.target.value)}></TextField><br/>
             </Grid>
         </Grid>
         <Divider style={{margin: '20px 0'}}></Divider>
@@ -281,7 +278,7 @@ function Add(props) {
             { middlePoint: {maxPoint: midPoint, price: feePerPoint}, maxWeight: maxWeight, cancelFeePercent: cancelFee, cost: newArr, 
         }});//surchargeProductCategory: categories}});
         alert(ob);
-        const tokenCom = 'eyJhbGciOiJIUzI1NiJ9.NjBjYTExNjY3ZGNiYWUxMDg4YzQxZDEy.vDhzh2rYw17aqlFw9mBKN2zTbrwJkgWkJGQGNKzU3Mc';
+        // const tokenCom = 'eyJhbGciOiJIUzI1NiJ9.NjBjYTExNjY3ZGNiYWUxMDg4YzQxZDEy.vDhzh2rYw17aqlFw9mBKN2zTbrwJkgWkJGQGNKzU3Mc';
         
 
         // setName(''); setDesc(''); setFeePerPoint(0); setMaxWeight(0); setMidPoint(0); setNextCost(''); setStartCost(5000);
