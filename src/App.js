@@ -1,8 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
 // import '../public/css/Font.css'
-import Navbar from './components/Navbar';
-import moduleName from 'module'
+// import Navbar from './components/Navbar';
+// import moduleName from 'module'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Home from './page/home/Home';
 import Yourpage from './page/yourpage/yourpage';

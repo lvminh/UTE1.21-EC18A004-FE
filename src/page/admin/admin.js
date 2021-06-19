@@ -18,6 +18,7 @@ import CustomerList from './customerlist';
 import ServicePack from './servicepack';
 import PartnerList from './partnerlist';
 import OrderList from './orderlist';
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     links: {
@@ -83,6 +84,7 @@ function a11yProps(index) {
 
 const Admin = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const [value, setValue] = React.useState(0);
    
     const handleChange = (event, newValue) => {
@@ -109,7 +111,7 @@ const Admin = (props) => {
                         <Tab label="Tình hình kinh doanh" {...a11yProps(5)} className={classes.links}/>
                     </Tabs>
                 </div>
-                <Button variant="contained" color="primary" style={{backgroundColor: 'black'}} id='logout-btn'>Đăng xuất</Button>
+                <Button variant="contained" color="primary" onClick={() => history.push('/')} style={{backgroundColor: 'black'}} id='logout-btn'>Đăng xuất</Button>
             </div>
             <div className="admin-main">
                 <AppBar position="static" className={classes.blackLine}>

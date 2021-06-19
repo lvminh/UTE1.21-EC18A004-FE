@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Regist(props) {
     let router = useHistory()
-    const { children, className, ...other } = props;
+    // const { children, className} = props;
     const classes = useStyles();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -104,7 +104,7 @@ function Regist(props) {
         // localStorage.setItem("personMail",response.profileObj.email)
         // console.log(localStorage.getItem("person"));
         // registed();
-        if (response.profileObj.email == email) {
+        if (response.profileObj.email === email) {
             console.log('oke')
             registed()
             router.push("/regist")

@@ -17,6 +17,8 @@ import PartnerOrderList from './partnerorderlist';
 import PartnerServicePack from './partnerservicepack';
 import Discount from './discount';
 
+import {useHistory} from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
     links: {
         fontSize: 16,
@@ -82,7 +84,7 @@ function a11yProps(index) {
 const Partner = (props) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-    
+    const history = useHistory();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -107,7 +109,7 @@ const Partner = (props) => {
                         <Tab label="Tình hình kinh doanh" {...a11yProps(4)} className={classes.links}/>
                     </Tabs>
                 </div>
-                <Button variant="contained" color="primary" style={{backgroundColor: 'black'}} id='logout-btn'>Đăng xuất</Button>
+                <Button variant="contained" color="primary" onClick={() => history.push('/')} style={{backgroundColor: 'black'}} id='logout-btn'>Đăng xuất</Button>
             </div>
             <div className="admin-main">
                 <AppBar position="static" className={classes.blackLine}>
